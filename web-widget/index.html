@@ -34,7 +34,50 @@
 <script src="SendBird.min.js"></script>
 <script src="build/widget.SendBird.js"></script>
 <script>
-  sbWidget.start('9DA1B1F4-0BE6-4DA8-82C5-2E81DAB56F23');
+  var userId = '';
+  var nickname = '';
+  var appId = '';
+  var apiToken = '';
+  var user_ids = [];
+
+  function post(area, body) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://api.sendbird.com/v3/" + area, false);
+    xhr.setRequestHeader('Content-Type', 'application/json, charset=utf8');
+    xhr.setRequestHeader('Api-Token', apiToken);
+    xhr.send(body);
+    return JSON.parse(xhr.responseText);
+  }
+
+  function get(area, parameters) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://api.sendbird.com/v3/" + area + "/" + parameters, false);
+    xhr.setRequestHeader('Content-Type', 'application/json, charset=utf8');
+    xhr.setRequestHeader('Api-Token', apiToken);
+    xhr.send();
+    return JSON.parse(xhr.responseText);
+  }
+
+  function getUserToken(userId) {
+    var userInfo = get('users', "?user_ids=" + encodeURIComponent(userId));
+    if(userInfo.users.length != 1) {
+      // User does not exist
+      userInfo = post('users', JSON.stringify({user_id: userId, nickname: nickname, profile_url: '', issue_access_token: true}));
+      return userInfo.access_token;
+    }
+    else{
+      // User already exists
+      userInfo = get('users', userId);
+      return userInfo.access_token;
+    }
+  }
+
+  var token = getUserToken(userId);
+
+  sbWidget.startWithConnect(appId, userId, nickname, token, function() {
+    var response = post("group_channels", JSON.stringify({user_ids: user_ids, is_distinct:true}));
+    sbWidget.showChannel(response.channel_url);
+  });
 </script>
 
 </html>

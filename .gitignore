@@ -1,3 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 web-widget/node_modules
+web-widget/build/widget.SendBird.js
 package-lock.json

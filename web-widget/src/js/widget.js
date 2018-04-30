@@ -61,7 +61,7 @@ class SBWidget {
     }
   }
 
-  startWithConnect(appId, userId, nickname, callback) {
+  startWithConnect(appId, userId, nickname, token, callback) {
     if (!window.SendBird) {
       console.error(ERROR_MESSAGE_SDK);
       return;
@@ -74,7 +74,7 @@ class SBWidget {
       });
       this._init();
       this._start(appId);
-      this._connect(userId, nickname, callback);
+      this._connect(userId, nickname, token, callback);
     } else {
       console.error(ERROR_MESSAGE);
     }
@@ -289,8 +289,8 @@ class SBWidget {
     }
   }
 
-  _connect(userId, nickname, callback) {
-    this.sb.connect(userId, nickname, () => {
+  _connect(userId, nickname, token, callback) {
+    this.sb.connect(userId, nickname, token, () => {
       this.widgetBtn.toggleIcon(true);
 
       this.listBoard.showChannelList();
