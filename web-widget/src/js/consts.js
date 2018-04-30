@@ -63,12 +63,10 @@ export const className = {
 
   POPUP: 'popup',
   MEMBERS: 'members',
-  INVITE: 'invite',
   POPUP_BODY: 'popup-body',
   POPUP_TOP: 'popup-top',
   POPUP_CONTENT: 'popup-content',
   POPUP_BOTTOM: 'popup-bottom',
-  INVITE_BTN: 'invite-btn',
   IMAGE_ME: 'image-me',
 
   TOOLTIP: 'tooltip',
@@ -79,9 +77,6 @@ export const className = {
   IC_OPTION: 'ic-option',
   IC_NEW_CHAT: 'ic-new-chat',
   IC_CLOSE: 'ic-close',
-  IC_MEMBERS: 'ic-members',
-  IC_INVITE: 'ic-invite',
-  IC_LEAVE: 'ic-leave',
 
   FADE_IN: 'sb-fade-in',
   FADE_OUT: 'sb-fade-out',

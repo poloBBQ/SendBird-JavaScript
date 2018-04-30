@@ -6,9 +6,6 @@ const EMPTY_STRING = '';
 
 const CHAT_SECTION_RIGHT_MAX = '280px';
 const CHAT_SECTION_RIGHT_MIN = '60px';
-const TOOLTIP_MEMBER_LIST = 'Member List';
-const TOOLTIP_CHANNEL_LEAVE = 'Channel Leave';
-const TOOLTIP_INVITE_MEMBER = 'Invite Member';
 const TITLE_CHAT_TITLE_DEFAULT = 'Group Channel';
 const TITLE_CHAT_TITLE_NEW_CHAT = 'New Chat';
 const TITLE_CHAT_LEAVE_POPUP = 'Do you really want to leave?';
@@ -97,39 +94,6 @@ class ChatSection extends Element {
     chatBoard.closeBtn = topBtnClose;
     chatTop.appendChild(topBtnClose);
 
-    var topBtnLeave = this.createDiv();
-    this._setClass(topBtnLeave, [className.BTN, className.IC_LEAVE]);
-    chatBoard.leaveBtn = topBtnLeave;
-
-    var tooltipLeave = this.createSpan();
-    this._setClass(tooltipLeave, [className.TOOLTIP]);
-    this._setContent(tooltipLeave, TOOLTIP_CHANNEL_LEAVE);
-
-    topBtnLeave.appendChild(tooltipLeave);
-    chatTop.appendChild(topBtnLeave);
-
-    var topBtnMembers = this.createDiv();
-    this._setClass(topBtnMembers, [className.BTN, className.IC_MEMBERS]);
-    chatBoard.memberBtn = topBtnMembers;
-
-    var tooltipMember = this.createSpan();
-    this._setClass(tooltipMember, [className.TOOLTIP]);
-    this._setContent(tooltipMember, TOOLTIP_MEMBER_LIST);
-
-    topBtnMembers.appendChild(tooltipMember);
-    chatTop.appendChild(topBtnMembers);
-
-    var topBtnInvite = this.createDiv();
-    this._setClass(topBtnInvite, [className.BTN, className.IC_INVITE]);
-    chatBoard.inviteBtn = topBtnInvite;
-
-    var tooltipInvite = this.createSpan();
-    this._setClass(tooltipInvite, [className.TOOLTIP]);
-    this._setContent(tooltipInvite, TOOLTIP_INVITE_MEMBER);
-
-    topBtnInvite.appendChild(tooltipInvite);
-    chatTop.appendChild(topBtnInvite);
-
     chatBoard.appendChild(chatTop);
 
     var chatContent = this.createDiv();
@@ -139,43 +103,6 @@ class ChatSection extends Element {
 
     isLast ? this.self.appendChild(chatBoard) : this.moveToFirstIndex(chatBoard);
     return chatBoard;
-  }
-
-  addLeavePopup(target) {
-    if (!target.leavePopup) {
-      var leavePopup = this.createDiv();
-      this._setClass(leavePopup, [className.LEAVE_POPUP]);
-
-      var leaveTitle = this.createDiv();
-      this._setClass(leaveTitle, [className.POPUP_TOP]);
-      this._setContent(leaveTitle, TITLE_CHAT_LEAVE_POPUP);
-      leavePopup.appendChild(leaveTitle);
-
-      var div = this.createDiv();
-      var leaveBtn = this.createDiv();
-      this._setClass(leaveBtn, [className.LEAVE_BTN]);
-      this._setContent(leaveBtn, TITLE_CHAT_LEAVE_BTN);
-      div.appendChild(leaveBtn);
-
-      var cancelBtn = this.createDiv();
-      this._setClickEvent(cancelBtn, () => {
-        target.removeChild(leavePopup);
-        target.leavePopup = null;
-      });
-      this._setClass(cancelBtn, [className.CANCEL_BTN]);
-      this._setContent(cancelBtn, TITLE_CHAT_CANCEL_BTN);
-      div.appendChild(cancelBtn);
-
-      leavePopup.appendChild(div);
-
-      target.leavePopup = leavePopup;
-      target.leavePopup.leaveBtn = leaveBtn;
-      target.insertBefore(leavePopup, target.firstChild);
-    }
-  }
-
-  setLeaveBtnClickEvent(target, action) {
-    this._setClickEvent(target, action);
   }
 
   removeMemberPopup() {

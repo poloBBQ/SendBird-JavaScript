@@ -100,36 +100,6 @@
     @include icon($icon-close-selected);
   }
 
-  .ic-members {
-    @include reset();
-    @include icon($icon-friend-list);
-    @include hover {
-      @include icon($icon-friend-list-hover);
-    }
-  }
-  .ic-members.active {
-    @include icon($icon-friend-list-selected);
-  }
-
-  .ic-invite {
-    @include reset();
-    @include icon($icon-friend-add);
-    @include hover {
-      @include icon($icon-friend-add-hover);
-    }
-  }
-  .ic-invite.active {
-    @include icon($icon-friend-add-selected);
-  }
-
-  .ic-leave {
-    @include reset();
-    @include icon($icon-leave-chat);
-    @include hover {
-      @include icon($icon-leave-chat-hover);
-    }
-  }
-
   // Tooltip
   .tooltip {
     @include reset();
@@ -669,27 +639,6 @@
       }
       .btn.ic-leave {
         margin-right: 3px;
-        .tooltip {
-          @extend .tooltip;
-          width: 78px;
-          position: absolute;
-          top: -37px;
-          left: -39px;
-        }
-      }
-      .btn.ic-members {
-        margin: 0 3px;
-      }
-      .btn.ic-members {
-        .tooltip {
-          @extend .tooltip;
-          width: 74px;
-          position: absolute;
-          top: -37px;
-          left: -37px;
-        }
-      }
-      .btn.ic-invite {
         .tooltip {
           @extend .tooltip;
           width: 78px;
