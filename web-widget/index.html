@@ -77,6 +77,7 @@
   sbWidget.startWithConnect(appId, userId, nickname, token, function() {
     var response = post("group_channels", JSON.stringify({user_ids: user_ids, is_distinct:true}));
     sbWidget.showChannel(response.channel_url);
+    sbWidget.toggleBoard(false);
   });
 </script>
 

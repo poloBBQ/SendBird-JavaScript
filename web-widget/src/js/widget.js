@@ -228,8 +228,7 @@ class SBWidget {
       });
 
       this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
-        this.chatSection.closeChatBoard(chatBoard);
-        this.closePopup();
+        this.toggleBoard(false);
         this.responsiveChatSection();
       });
       hide(chatBoard.leaveBtn);
@@ -526,9 +525,7 @@ class SBWidget {
       this.responsiveChatSection(channelUrl, true);
     }
     this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
-      this.chatSection.closeChatBoard(chatBoard);
-      this.closePopup();
-      this.removeChannelSet(channelUrl);
+      this.toggleBoard(false);
       this.responsiveChatSection();
     });
     this.spinner.insert(chatBoard.content);
@@ -741,9 +738,9 @@ class SBWidget {
   toggleBoard(isShow) {
     if (isShow) {
       hide(addClass(removeClass(this.widgetBtn.self, className.FADE_IN), className.FADE_OUT));
-      show(addClass(removeClass(this.listBoard.self, className.FADE_OUT), className.FADE_IN));
+      show(addClass(removeClass(this.chatSection.self, className.FADE_OUT), className.FADE_IN));
     } else {
-      hide(addClass(removeClass(this.listBoard.self, className.FADE_IN), className.FADE_OUT));
+      hide(addClass(removeClass(this.chatSection.self, className.FADE_IN), className.FADE_OUT));
       show(addClass(removeClass(this.widgetBtn.self, className.FADE_OUT), className.FADE_IN));
     }
   }
