@@ -147,43 +147,6 @@ class SBWidget {
     this.widgetBtn.reset();
   }
 
-  responsiveChatSection(channelUrl, isShow) {
-    let _bodyWidth = document.getElementsByTagName('BODY')[0].offsetWidth - 360;
-    let maxSize = parseInt(_bodyWidth / CHAT_BOARD_WIDTH);
-    let currentSize = this.activeChannelSetList.length;
-    if (currentSize >= maxSize) {
-      let extraChannelSet = getLastItem(this.activeChannelSetList);
-      if (extraChannelSet) {
-        if (this.extraChannelSetList.indexOf(extraChannelSet.channel.url) < 0) {
-          this.extraChannelSetList.push(extraChannelSet.channel.url);
-        }
-        let chatBoard = this.chatSection.getChatBoard(extraChannelSet.channel.url);
-        if (chatBoard) {
-          this.chatSection.closeChatBoard(chatBoard);
-        }
-        this.removeChannelSet(extraChannelSet.channel);
-      }
-      if (channelUrl) {
-        let idx = this.extraChannelSetList.indexOf(channelUrl);
-        if (idx > -1) {
-          this.extraChannelSetList.splice(idx, 1);
-        }
-      }
-      this.chatSection.setWidth(maxSize * CHAT_BOARD_WIDTH);
-    } else {
-      let popChannelUrl = this.extraChannelSetList.pop();
-      if (popChannelUrl) {
-        this._connectChannel(popChannelUrl, true);
-        this.chatSection.setWidth((currentSize + 1) * CHAT_BOARD_WIDTH);
-      } else {
-        if (isShow) {
-          currentSize += 1;
-        }
-        this.chatSection.setWidth(currentSize * CHAT_BOARD_WIDTH);
-      }
-    }
-  }
-
   _start(appId) {
     this.sb = new Sendbird(appId);
 
@@ -197,14 +160,12 @@ class SBWidget {
       this.listBoard.addChannelListScrollEvent(() => {
         this.getChannelList();
       });
-      this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
     });
 
     this.listBoard.addNewChatClickEvent(() => {
       this.listBoard.hideLogoutBtn();
 
       var chatBoard = this.chatSection.createChatBoard(NEW_CHAT_BOARD_ID);
-      this.responsiveChatSection(null, true);
 
       this.chatSection.createNewChatBoard(chatBoard);
       this.chatSection.addClickEvent(chatBoard.startBtn, () => {
@@ -229,7 +190,6 @@ class SBWidget {
 
       this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
         this.toggleBoard(false);
-        this.responsiveChatSection();
       });
       hide(chatBoard.leaveBtn);
       hide(chatBoard.memberBtn);
@@ -239,7 +199,6 @@ class SBWidget {
       this.listBoard.hideLogoutBtn();
       this.closePopup();
       this.toggleBoard(false);
-      this.chatSection.responsiveSize(true, this.responsiveChatSection.bind(this));
     });
 
     this.listBoard.addLogoutClickEvent(() => {
@@ -276,7 +235,6 @@ class SBWidget {
       this._connect(cookie.userId, cookie.nickname);
       this.listBoard.showChannelList();
       this.toggleBoard(true);
-      this.chatSection.responsiveSize(false, this.responsiveChatSection.bind(this));
     }
   }
 
@@ -521,12 +479,8 @@ class SBWidget {
 
   _connectChannel(channelUrl, doNotCall) {
     var chatBoard = this.chatSection.createChatBoard(channelUrl, doNotCall);
-    if (!doNotCall) {
-      this.responsiveChatSection(channelUrl, true);
-    }
     this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
       this.toggleBoard(false);
-      this.responsiveChatSection();
     });
     this.spinner.insert(chatBoard.content);
     this.sb.getChannelInfo(channelUrl, (channel) => {

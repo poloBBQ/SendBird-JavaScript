@@ -42,9 +42,6 @@ class ChatSection extends Element {
   }
 
   responsiveSize(isMax, action) {
-    if (isMax !== undefined) {
-      this.self.style.right = isMax ? CHAT_SECTION_RIGHT_MIN : CHAT_SECTION_RIGHT_MAX;
-    }
     action();
   }
 
