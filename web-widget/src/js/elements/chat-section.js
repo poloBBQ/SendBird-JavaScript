@@ -4,8 +4,8 @@ import { show, hide, getFullHeight, removeClass, xssEscape } from '../utils.js';
 
 const EMPTY_STRING = '';
 
-const CHAT_SECTION_RIGHT_MAX = '280px';
-const CHAT_SECTION_RIGHT_MIN = '60px';
+const CHAT_SECTION_RIGHT_MAX = '0px';
+const CHAT_SECTION_RIGHT_MIN = '0px';
 const TITLE_CHAT_TITLE_DEFAULT = 'Group Channel';
 const TITLE_CHAT_TITLE_NEW_CHAT = 'New Chat';
 const TITLE_CHAT_LEAVE_POPUP = 'Do you really want to leave?';
