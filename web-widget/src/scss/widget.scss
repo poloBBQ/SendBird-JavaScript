@@ -5,15 +5,29 @@
 
 $break-small: 1000px;
 
+@mixin phone {
+  @media (max-width: #{$break-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$break-small}) {
+    @content;
+  }
+}
+
 #sb_widget {
   @include reset();
   z-index: 99990;
   width: 100%;
-  @media screen and (min-width: $break-small) {
-    height: 60px;
-  }
-  @media screen and (max-width: $break-small) {
+  @include phone {
     height: 100%;
+    font-size: 46px;
+  }
+  @include desktop {
+    height: 60px;
+    font-size: 12px;
   }
   position: fixed;
   bottom: 0;
@@ -114,7 +128,6 @@ $break-small: 1000px;
     background-color: $color-black;
     text-align: center;
     z-index: 1;
-    font-size: 12px;
     color: $color-white;
     padding: 0 12px;
     height: 32px;
@@ -138,10 +151,22 @@ $break-small: 1000px;
     @include reset();
     z-index: 99991;
     position: absolute;
-    right: 20px;
-    bottom: 20px;
-    width: 60px;
-    height: 60px;
+    @include phone {
+      right: 40px;
+      bottom: 40px;
+    }
+    @include desktop {
+      right: 20px;
+      bottom: 20px;
+    }
+    @include phone {
+      width: 160px;
+      height: 160px;
+    }
+    @include desktop {
+      width: 60px;
+      height: 60px;
+    }
     cursor: pointer;
     @include border-radius(50%);
     @include box-shadow(0 1px 6px rgba(0,0,0,0.06), 0 2px 32px rgba(0,0,0,0.16));
@@ -163,7 +188,6 @@ $break-small: 1000px;
       background-color: $color-unread-background;
       color: $color-white;
       font-weight: 700;
-      font-size: 12px;
       line-height: 18px;
       text-align: center;
       @include border-radius(50%);
@@ -218,7 +242,6 @@ $break-small: 1000px;
         @include reset();
         display: inline-block;
         float: left;
-        font-size: 16px;
         color: $color-list-top-title;
         letter-spacing: 0.85px;
         line-height: 36px;
@@ -237,7 +260,6 @@ $break-small: 1000px;
         @include hover {
           & > .tooltip {
             @extend .tooltip;
-            font-size: 12px;
             display: block;
           }
         }
@@ -267,7 +289,6 @@ $break-small: 1000px;
             width: calc(100% - 32px);
             height: 32px;
             background-color: $color-white;
-            font-size: 13px;
             color: $color-gray-darkest;
             line-height: 32px;
             padding: 0 16px;
@@ -307,7 +328,6 @@ $break-small: 1000px;
 
       .title {
         @include reset();
-        font-size: 11px;
         color: $color-gray-darker;
         padding-bottom: 6px;
       }
@@ -317,7 +337,6 @@ $break-small: 1000px;
         height: 32px;
         border: 1px solid $color-input-border;
         background-color: $color-input-background;
-        font-size: 13px;
         color: $color-login-title;
         padding: 0 8px;
         @include border-radius(3px);
@@ -338,7 +357,6 @@ $break-small: 1000px;
         width: calc(98px - 32px);
         text-align: center;
         line-height: 32px;
-        font-size: 14px;
         @include transform-translate(-50%, 0);
 
         .sb-spinner {
@@ -424,7 +442,6 @@ $break-small: 1000px;
             float: left;
             width: 125px;
             height: 18px;
-            font-size: 14px;
             color: $color-content-text;
             line-height: 18px;
             overflow: hidden;
@@ -435,7 +452,6 @@ $break-small: 1000px;
           time {
             @include reset();
             float: right;
-            font-size: 12px;
             line-height: 18px;
             color: $color-gray-light;
           }
@@ -450,7 +466,6 @@ $break-small: 1000px;
             float: left;
             width: 170px;
             height: 18px;
-            font-size: 13px;
             color: $color-gray-light;
             line-height: 18px;
             overflow: hidden;
@@ -466,7 +481,6 @@ $break-small: 1000px;
             height: 18px;
             background-color: $color-unread-background;
             font-weight: 700;
-            font-size: 12px;
             color: $color-white;
             line-height: 18px;
             text-align: center;
@@ -480,7 +494,6 @@ $break-small: 1000px;
           & > .title {
             @include reset();
             margin: 130px 0 16px 0;
-            font-size: 14px;
             color: $color-gray-darker;
           }
           & > .new-chat-btn {
@@ -521,15 +534,15 @@ $break-small: 1000px;
     position: absolute;
     right: 0px;
     bottom: 0;
-    @media screen and (min-width: $break-small) {
-      width: 300px;
-      right: 20px;
-      height: auto;
-    }
-    @media screen and (max-width: $break-small) {
+    @include phone {
       width: 100%;
       right: 0px;
       height: 100%;
+    }
+    @include desktop {
+      width: 300px;
+      right: 20px;
+      height: auto;
     }
 
     .chat-board {
@@ -600,7 +613,12 @@ $break-small: 1000px;
     .top {
       @include reset();
       width: calc(100% - 24px);
-      height: 35px;
+      @include phone {
+        height: 100px;
+      }
+      @include desktop {
+        height: 35px;
+      }
       padding: 0 12px;
       background-color: $color-gray-lightest;
       border-bottom: 1px solid $color-list-border;
@@ -609,38 +627,37 @@ $break-small: 1000px;
       .title {
         @include reset();
         float: left;
-        max-width: 123px;
-        font-size: 13px;
+        @include phone {
+          max-width: 80%;
+        }
+        @include desktop {
+          max-width: 250px;
+        }
+        height: 100%;
         color: $color-content-text;
-        line-height: 35px;
+        @include phone {
+          line-height: 100px;
+        }
+        @include desktop {
+          line-height: 35px;
+        }
         overflow: hidden;
         -ms-text-overflow: ellipsis;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
 
-      .count {
-        @include reset();
-        float: left;
-        width: 16px;
-        height: 16px;
-        margin-left: 8px;
-        background-color: $color-gray-lighter;
-        font-weight: 700;
-        font-size: 10px;
-        color: $color-gray-darker;
-        text-align: center;
-        line-height: 16px;
-        position: relative;
-        top: 50%;
-        @include transform-translate(0, -50%);
-      }
-
       .btn {
         @include reset();
         float: right;
-        width: 24px;
-        height: 26px;
+        @include phone {
+          width: 100px;
+          height: 100px;
+        }
+        @include desktop {
+          width: 24px;
+          height: 26px;
+        }
         position: relative;
         top: 50%;
         cursor: pointer;
@@ -736,7 +753,6 @@ $break-small: 1000px;
           .nickname {
             @include reset();
             float: left;
-            font-size: 13px;
             color: $color-gray-darker;
             line-height: 31px;
             max-width: 70%;
@@ -765,7 +781,6 @@ $break-small: 1000px;
           padding: 0 12px;
           text-align: center;
           line-height: 26px;
-          font-size: 13px;
           letter-spacing: 0.85px;
 
           .sb-spinner {
@@ -804,7 +819,6 @@ $break-small: 1000px;
         width: calc(100% - 16px);
         height: 22px;
         padding: 0 8px;
-        font-size: 12px;
         color: $color-chat-system-message-color;
         line-height: 22px;
         .sb-spinner {
@@ -846,7 +860,6 @@ $break-small: 1000px;
           word-wrap: break-word;
           resize: none;
           border: 0;
-          font-size: 13px;
           color: $color-gray-darkest;
           background-color: $color-white;
           @include focus {
@@ -858,7 +871,6 @@ $break-small: 1000px;
           }
         }
         .text:empty::before {
-          font-size: 13px;
           content: $content-message-input-default;
           color: $color-chat-system-message-color;
         }
@@ -869,17 +881,23 @@ $break-small: 1000px;
         .file {
           @include reset();
           float: left;
-          width: 22px;
-          height: 22px;
+          @include phone {
+            width: 30px;
+            height: 30px;
+          }
+          @include desktop {
+            width: 17px;
+            height: 17px;
+          }
           cursor: pointer;
           @include icon($icon-file-add);
           background-position: inherit;
-          background-size: 14px 14px;
+          background-size: 100% 100%;
 
           @include hover {
             @include icon($icon-file-add-hover);
             background-position: inherit;
-            background-size: 14px 14px;
+            background-size: 100% 100%;
           }
         }
 
@@ -910,7 +928,6 @@ $break-small: 1000px;
       }
       .nickname {
         @include reset();
-        font-size: 12px;
         color: $color-gray-dark;
       }
       .message-item {
@@ -920,21 +937,23 @@ $break-small: 1000px;
           @include reset();
           display: inline-block;
           text-align: inherit;
-          max-width: 180px;
+          @include phone {
+            max-width: 600px;
+          }
+          @include desktop {
+            max-width: 180px;
+          }
           background-color: $color-chat-message-background;
           color: $color-content-text;
-          font-size: 13px;
           padding: 6px;
           word-wrap: break-word;
           @include border-radius(5px);
 
           .preview-name {
-            font-size: 11px;
             font-weight: 300;
           }
           .preview-title {
             margin-top: 4px;
-            font-size: 13px;
             font-weight: 500;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -944,7 +963,6 @@ $break-small: 1000px;
           }
           .preview-description {
             margin-top: 4px;
-            font-size: 11px;
             font-weight: 300;
           }
           .preview-iamge {
@@ -978,7 +996,6 @@ $break-small: 1000px;
           max-width: 180px;
           background-color: $color-transparent;
           color: $color-content-text;
-          font-size: 13px;
           word-wrap: break-word;
           cursor: pointer;
           text-decoration: none;
@@ -1007,18 +1024,17 @@ $break-small: 1000px;
             }
             & > .file-download {
               @include reset();
-              font-size: 11px;
               line-height: 6px;
               color: $color-text-download;
             }
           }
         }
         .unread {
+          visibility: hidden; // TODO: @pmartinez use for message time
           @include reset();
           display: none !important;
           background-color: transparent;
           color: $color-read-receipt;
-          font-size: 11px;
           font-weight: 700;
           text-align: center;
           margin: 0 4px;
@@ -1055,12 +1071,10 @@ $break-small: 1000px;
     }
     .message-set.time {
       text-align: center;
-      font-size: 11px;
       color: $color-gray-dark;
     }
     .message-set.admin-message {
       text-align: center;
-      font-size: 12px;
       color: $color-gray-darker;
     }
 
@@ -1171,7 +1185,6 @@ $break-small: 1000px;
             .nickname {
               @include reset();
               display: inline-block;
-              font-size: 13px;
               color: $color-gray-darker;
               line-height: 31px;
               max-width: 70%;
@@ -1195,7 +1208,6 @@ $break-small: 1000px;
       .title {
         @include reset();
         float: left;
-        font-size: 13px;
         color: $color-gray-darker;
         line-height: 36px;
       }
@@ -1208,7 +1220,6 @@ $break-small: 1000px;
         margin-left: 8px;
         background-color: $color-gray-lighter;
         font-weight: 700;
-        font-size: 10px;
         color: $color-gray-darker;
         text-align: center;
         line-height: 16px;
@@ -1240,7 +1251,6 @@ $break-small: 1000px;
       .title {
         @include reset();
         float: left;
-        font-size: 13px;
         line-height: 52px;
         color: $color-gray-darker;
       }
@@ -1253,7 +1263,6 @@ $break-small: 1000px;
         margin-left: 8px;
         background-color: $color-popup-count-background;
         font-weight: 700;
-        font-size: 10px;
         color: $color-gray-darker;
         text-align: center;
         line-height: 16px;
@@ -1269,7 +1278,6 @@ $break-small: 1000px;
         top: 50%;
         width: 41px;
         height: 24px;
-        font-size: 14px;
         line-height: 24px;
         letter-spacing: 0.85px;
         @include transform-translate(0, -50%);

@@ -80,12 +80,6 @@ class ChatSection extends Element {
     chatBoard.topTitle = chatTitle;
     chatTop.appendChild(chatTitle);
 
-    var chatMemberCount = this.createDiv();
-    this._setClass(chatMemberCount, [className.COUNT]);
-    this._setContent(chatMemberCount, MEMBER_COUNT_DEFAULT);
-    chatBoard.count = chatMemberCount;
-    chatTop.appendChild(chatMemberCount);
-
     var topBtnClose = this.createDiv();
     this._setClass(topBtnClose, [className.BTN, className.IC_CLOSE]);
     chatBoard.closeBtn = topBtnClose;
@@ -123,7 +117,6 @@ class ChatSection extends Element {
   }
 
   updateChatTop(target, count, title) {
-    this._setContent(target.count, count);
     if (title !== null) {
       this._setContent(target.topTitle, title);
     }
