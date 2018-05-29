@@ -23,7 +23,7 @@ $break-small: 1000px;
   width: 100%;
   @include phone {
     height: 100%;
-    font-size: 46px;
+    font-size: 20px;
   }
   @include desktop {
     height: 60px;
@@ -152,16 +152,16 @@ $break-small: 1000px;
     z-index: 99991;
     position: absolute;
     @include phone {
-      right: 40px;
-      bottom: 40px;
+      right: 20px;
+      bottom: 20px;
     }
     @include desktop {
       right: 20px;
       bottom: 20px;
     }
     @include phone {
-      width: 160px;
-      height: 160px;
+      width: 60px;
+      height: 60px;
     }
     @include desktop {
       width: 60px;
@@ -614,7 +614,7 @@ $break-small: 1000px;
       @include reset();
       width: calc(100% - 24px);
       @include phone {
-        height: 100px;
+        height: 35px;
       }
       @include desktop {
         height: 35px;
@@ -636,7 +636,7 @@ $break-small: 1000px;
         height: 100%;
         color: $color-content-text;
         @include phone {
-          line-height: 100px;
+          line-height: 35px;
         }
         @include desktop {
           line-height: 35px;
@@ -651,8 +651,8 @@ $break-small: 1000px;
         @include reset();
         float: right;
         @include phone {
-          width: 100px;
-          height: 100px;
+          width: 30px;
+          height: 30px;
         }
         @include desktop {
           width: 24px;
@@ -882,8 +882,8 @@ $break-small: 1000px;
           @include reset();
           float: left;
           @include phone {
-            width: 30px;
-            height: 30px;
+            width: 17px;
+            height: 17px;
           }
           @include desktop {
             width: 17px;

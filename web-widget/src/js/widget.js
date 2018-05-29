@@ -40,7 +40,7 @@ window.WebFontConfig = {
 
 class SBWidget {
   constructor() {
-
+    this.keepChatOpen = false;
   }
 
   start(appId) {
@@ -189,7 +189,13 @@ class SBWidget {
       });
 
       this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
-        this.toggleBoard(false);
+        if (this.keepChatOpen) {
+          this.toggleBoard(false);
+        }
+        else {
+          this.chatSection.closeChatBoard(chatBoard);
+          this.removeChannelSet(chatBoard.id);
+        }
       });
       hide(chatBoard.leaveBtn);
       hide(chatBoard.memberBtn);
@@ -480,7 +486,13 @@ class SBWidget {
   _connectChannel(channelUrl, doNotCall) {
     var chatBoard = this.chatSection.createChatBoard(channelUrl, doNotCall);
     this.chatSection.addClickEvent(chatBoard.closeBtn, () => {
-      this.toggleBoard(false);
+      if (this.keepChatOpen) {
+        this.toggleBoard(false);
+      }
+      else {
+        this.chatSection.closeChatBoard(chatBoard);
+        this.removeChannelSet(chatBoard.id);
+      }
     });
     this.spinner.insert(chatBoard.content);
     this.sb.getChannelInfo(channelUrl, (channel) => {
@@ -690,10 +702,23 @@ class SBWidget {
   }
 
   toggleBoard(isShow) {
+    // TODO: as suggested, try: quita el heght: 100% de sb_widget y pon un position: fixed a #sb_widget .chat-section
+    var width = window.innerWidth
+      || document.documentElement.clientWidth
+      || document.body.clientWidth;
     if (isShow) {
+      if(width < 1000)
+      {
+        document.getElementById("sb_widget").style.height = "100%";
+      }
+      else
+      {
+        document.getElementById("sb_widget").style.height = "60px";
+      }
       hide(addClass(removeClass(this.widgetBtn.self, className.FADE_IN), className.FADE_OUT));
       show(addClass(removeClass(this.chatSection.self, className.FADE_OUT), className.FADE_IN));
     } else {
+      document.getElementById("sb_widget").style.height = "60px";
       hide(addClass(removeClass(this.chatSection.self, className.FADE_IN), className.FADE_OUT));
       show(addClass(removeClass(this.widgetBtn.self, className.FADE_OUT), className.FADE_IN));
     }
